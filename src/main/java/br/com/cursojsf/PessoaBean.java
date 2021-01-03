@@ -3,75 +3,56 @@ package br.com.cursojsf;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.html.HtmlCommandButton;
+
+import br.bom.dao.DaoGeneric;
+import br.com.entidades.Pessoa;
 
 @ViewScoped
 @ManagedBean(name = "pessoaBean")
 public class PessoaBean {
 
-	private String nome;
-
-	private String senha;
-
-	private String texto;
-
-	private HtmlCommandButton commandButton;
-
-	private List<String> nomes = new ArrayList<String>();
-
-	public String addNome() {
-		nomes.add(nome);
-		nomes.add(senha);
-		nomes.add(texto);
-
-		if (nomes.size() > 3) {
-			commandButton.setDisabled(true);
-			return "paginanavegada?faces-redurect=true";
-		}
-
-		return null; // null ou vazio fica na mesma página ->outcome
+	private Pessoa pessoa =  new Pessoa();
+	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
+	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
+	
+	public String salvar() {
+		pessoa = daoGeneric.merge(pessoa);
+		carregarPessoas();
+		return "";
+	}
+	
+	public String novo() {
+		pessoa = new Pessoa();
+		return "";
+	}
+	
+	public String remove() {
+		daoGeneric.deletePorId(pessoa);
+		pessoa =  new Pessoa();
+		carregarPessoas();
+		return"";
+	}
+	
+	@PostConstruct
+	public void carregarPessoas() {
+		pessoas = daoGeneric.getListEntity(Pessoa.class);
 	}
 
-	public String getSenha() {
-		return senha;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
-
-	public String getTexto() {
-		return texto;
+	
+	public List<Pessoa> getPessoas() {
+		return pessoas;
 	}
-
-	public void setTexto(String texto) {
-		this.texto = texto;
-	}
-
-	public void setCommandButton(HtmlCommandButton commandButton) {
-		this.commandButton = commandButton;
-	}
-
-	public HtmlCommandButton getCommandButton() {
-		return commandButton;
-	}
-
-	public void setNomes(List<String> nomes) {
-		this.nomes = nomes;
-	}
-
-	public List<String> getNomes() {
-		return nomes;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	
+	
 
 }
