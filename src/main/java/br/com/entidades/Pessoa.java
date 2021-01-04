@@ -11,56 +11,85 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Pessoa implements Serializable{
+public class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String nome;
-	
+
 	private String sobrenome;
-	
+
 	private Integer idade;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
-	
+
 	private String sexo;
-	
+
 	private String[] frameworks;
+
+	private String login;
+	private String senha; 
 	
+	private String perfilUser;	
+	
+
+	public String getPerfilUser() {
+		return perfilUser;
+	}
+
+	public void setPerfilUser(String perfilUser) {
+		this.perfilUser = perfilUser;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public String[] getFrameworks() {
 		return frameworks;
 	}
-	
+
 	private Boolean ativo;
-	
+
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
-	
+
 	public Boolean getAtivo() {
 		return ativo;
 	}
-	
+
 	public void setFrameworks(String[] frameworks) {
 		this.frameworks = frameworks;
 	}
-	
+
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-	
 
 	public String getSexo() {
 		return sexo;
 	}
-	
+
 	public Pessoa() {
-		
+
 	}
 
 	public Long getId() {
@@ -127,7 +156,5 @@ public class Pessoa implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
 
 }
