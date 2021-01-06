@@ -11,7 +11,19 @@
 
 <h:body>
 
-	<h:form id="formPessoa">
+	<h:form style="margin-top:15%; margin-left:28%">
+		<h:commandLink style="margin-left:1cm;" value="Administracação"
+			action="lançamento" />
+		<h:commandLink style="margin-left:1cm;" value="Lançamentos"
+			action="primeirapagina" />
+		<h:commandLink style="margin-left:1cm;" value="Trocar Usuário"
+			action="index" />
+
+	</h:form>
+
+	<h:form id="formPessoa" style="margin-top:5%; 
+	margin-left:33%"
+		rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 
 		<h:graphicImage height="100" width="200" library="img" name="jsf.png"
 			title="Cadastro em JSF" />
@@ -65,9 +77,10 @@
 
 			<h:outputLabel value="Senha: " />
 			<h:inputSecret value="#{pessoaBean.pessoa.senha}" />
-			
+
 			<h:outputLabel value="Perfil " />
-			<h:selectOneMenu id="PerfilUser" value="#{pessoaBean.pessoa.perfilUser}">
+			<h:selectOneMenu id="PerfilUser"
+				value="#{pessoaBean.pessoa.perfilUser}">
 				<f:selectItem itemValue="NÃO INFORMADO" itemLabel="[-Selecionar]"
 					noSelectionOption="true" />
 				<f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador" />
@@ -81,12 +94,15 @@
 
 				<h:commandButton value="Novo" action="#{pessoaBean.novo}"
 					image="/resources/img/add.png" title="Novo" />
-				<h:commandButton value="Salvar" action="#{pessoaBean.salvar}"
-					image="/resources/img/save.png" title="Salvar" />
-				<h:commandButton value="Delete" action="#{pessoaBean.remove}"
-					image="/resources/img/delete.png" title="Delete" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"/>
-				<h:commandButton value="Limpar" type="reset"
-					image="/resources/img/clear.png" title="Limpar" />
+				<h:commandButton style="margin-left:1cm;" value="Salvar"
+					action="#{pessoaBean.salvar}" image="/resources/img/save.png"
+					title="Salvar" />
+				<h:commandButton style="margin-left:1cm;" value="Delete"
+					action="#{pessoaBean.remove}" image="/resources/img/delete.png"
+					title="Delete"
+					rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}" />
+				<h:commandButton style="margin-left:1cm;" value="Limpar"
+					type="reset" image="/resources/img/clear.png" title="Limpar" />
 
 			</h:panelGroup>
 
@@ -119,7 +135,7 @@
 				<h:commandLink>
 					<f:setPropertyActionListener value="#{p}"
 						target="#{pessoaBean.pessoa}" />
-					<h:graphicImage value="/resources/img/edit.png" title="Editar"/>
+					<h:graphicImage value="/resources/img/edit.png" title="Editar" />
 				</h:commandLink>
 			</h:column>
 
@@ -128,7 +144,7 @@
 				<h:commandLink action="#{pessoaBean.remove}">
 					<f:setPropertyActionListener value="#{p}"
 						target="#{pessoaBean.pessoa}" />
-					<h:graphicImage value="/resources/img/delete.png" title="Excluir"/>
+					<h:graphicImage value="/resources/img/delete.png" title="Excluir" />
 				</h:commandLink>
 			</h:column>
 
