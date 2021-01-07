@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Login</title>
+
+</h:head>
+
+<h:body>
+
+	<h:form style="margin-top:15%; margin-left:28%">
+		<h:commandLink style="margin-left:1cm;" value="Administracação"
+			action="primeirapagina" />
+		<h:commandLink style="margin-left:1cm;" value="Lancamento"
+			action="lancamento" />
+		<h:commandLink style="margin-left:1cm;" value="Trocar Usuário"
+			action="index" />
+
+	</h:form>
+
+	<h:form id="formLançamento" style="margin-top:15%; margin-left:40%">
+
+		<h:form>
+			<h:panelGrid columns="2">
+				<f:facet name="header">
+					<h:outputText value="lançamento" />
+				</f:facet>
+
+				<h:outputLabel value="ID" />
+				<h:inputText value="#{lancamentoBean.lancamento.id}" readonly="true" />
+
+				<h:outputLabel value="Nota: " />
+				<h:inputText value="#{lancamentoBean.lancamento.numeroNotaFiscal}" />
+
+				<h:outputLabel value="Origem: " />
+				<h:inputText value="#{lancamentoBean.lancamento.empresaOrigem}" />
+
+				<h:outputLabel value="Destino " />
+				<h:inputText value="#{lancamentoBean.lancamento.empresaDestino}" />
+
+				<h:outputLabel />
+
+				<h:panelGroup style="margin-top:15%; margin-left:-10%">
+
+					<h:commandButton value="Novo" action="#{lancamentoBean.novo}"
+						image="/resources/img/add.png" title="Novo" />
+					<h:commandButton style="margin-left:0.5cm;" value="Salvar"
+						action="#{lancamentoBean.salvar}" image="/resources/img/save.png"
+						title="Salvar" />
+					<h:commandButton style="margin-left:0.5cm;" value="Delete"
+						action="#{lancamentoBean.remove}"
+						image="/resources/img/delete.png" title="Delete" />
+
+					<h:commandButton style="margin-left:0.5cm;" value="Limpar"
+						type="reset" image="/resources/img/clear.png" title="Limpar" />
+
+				</h:panelGroup>
+			</h:panelGrid>
+
+
+			<h:dataTable value="#{lancamentoBean.lancamentos}" var="lanc"
+				border="3">
+				<f:facet name="header">Lista de lançamentos</f:facet>
+
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+					<h:outputLabel value="#{lanc.id}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">N° Nota Fiscal</f:facet>
+					<h:outputLabel value="#{lanc.numeroNotaFiscal}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Empresa Origem</f:facet>
+					<h:outputLabel value="#{lanc.empresaOrigem}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Empresa Destino</f:facet>
+					<h:outputLabel value="#{lanc.empresaDestino}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Usuário</f:facet>
+					<h:outputLabel value="#{lanc.usuario.nome}" />
+				</h:column>
+
+
+			</h:dataTable>
+		</h:form>
+
+
+	</h:form>
+
+</h:body>
+
+</html>
