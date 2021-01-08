@@ -11,9 +11,9 @@
 
 <h:body>
 
-	<h:form style="margin-top:15%; margin-left:28%">
+	<h:form style="margin-top:3%; margin-left:28%">
 		<h:commandLink style="margin-left:1cm;" value="Administracação"
-			action="primeirapagina" />
+			action="primeirapagina" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"/>
 		<h:commandLink style="margin-left:1cm;" value="Lancamento"
 			action="lancamento" />
 		<h:commandLink style="margin-left:1cm;" value="Trocar Usuário"
@@ -21,7 +21,7 @@
 
 	</h:form>
 
-	<h:form id="formPessoa" style="margin-top:5%; 
+	<h:form id="formPessoa" style="margin-top:3%; 
 	margin-left:33%"
 		rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 

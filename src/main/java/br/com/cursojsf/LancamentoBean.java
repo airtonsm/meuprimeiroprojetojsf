@@ -34,7 +34,7 @@ public class LancamentoBean {
 		Pessoa pessoaUser = (Pessoa) externalContext.getSessionMap().get("usuarioLogado");
 		
 		lancamento.setUsuario(pessoaUser);
-		daoGeneric.salvar(lancamento);
+		daoGeneric.merge(lancamento);
 		
 		carregarLancamento();
 						
@@ -61,7 +61,7 @@ public class LancamentoBean {
 	}
 	
 	public String remove() {	
-		daoGeneric.delete(lancamento);// deleta lançamento
+		daoGeneric.deletePorId(lancamento);// deleta lançamento
 		lancamento =  new Lancamento(); // limpa objeto
 		carregarLancamento(); // recarraga lista de lançamentos novamente
 		return"";

@@ -23,6 +23,7 @@ public class Lancamento implements Serializable {
 	private String empresaOrigem;
 
 	private String empresaDestino;
+	
 
 	@ManyToOne(optional = false)
 	@ForeignKey(name = "usuario_fk")
