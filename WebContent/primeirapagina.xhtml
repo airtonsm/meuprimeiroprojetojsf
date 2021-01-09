@@ -35,12 +35,14 @@
 
 
 			<h:outputLabel value="Nome: " />
-			<h:inputText value="#{pessoaBean.pessoa.nome}" />
-
+			<h:inputText value="#{pessoaBean.pessoa.nome}" required="true"
+				requiredMessage="Insira o nome!!!" 
+				validatorMessage="Nome deve ter no mínimo 4 letras">
+				<f:validateLength minimum="4"/>
+				</h:inputText>
 
 			<h:outputLabel value="Sobrenome: " />
-			<h:inputText value="#{pessoaBean.pessoa.sobrenome}" />
-
+			<h:inputText value="#{pessoaBean.pessoa.sobrenome}"  required="true" requiredMessage="Insera o Sobrenome"/>
 
 			<h:outputLabel value="Idade: " />
 			<h:inputText value="#{pessoaBean.pessoa.idade}" />
@@ -52,12 +54,14 @@
 				<f:selectItem itemValue="MASCULINO" itemLabel="Masculino" />
 				<f:selectItem itemValue="FEMININO" itemLabel="Feminino" />
 			</h:selectOneMenu>
-			
-			<h:outputLabel value="Data Nascimento"/>
-			<h:inputText value="#{pessoaBean.pessoa.dataNascimento}">
-				<f:convertDateTime pattern="dd/MM/yyyy" dateStyle="full" locale="pt_BR"/>
+
+			<h:outputLabel value="Data Nascimento" />
+			<h:inputText value="#{pessoaBean.pessoa.dataNascimento}"
+				converterMessage="Data de nascimento Errada">
+				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+					timeZone="GMT-03:00" />
 			</h:inputText>
-			
+
 
 			<h:outputLabel value="frameworks: " />
 			<h:selectManyMenu id="campoframeworks" style="height:150px"
@@ -108,27 +112,41 @@
 
 
 			<h:outputLabel />
+
+
+
+
 			<h:panelGroup>
 
-				<h:commandButton value="Novo" action="#{pessoaBean.novo}"
-					image="/resources/img/add.png" title="Novo" />
+				<h:commandButton value="Novo" id="botaoNovo" action="#{pessoaBean.novo}"
+					image="/resources/img/add.png" title="Novo" >
+					  <f:ajax execute="botaoNovo" render="@form"/>
+					</h:commandButton>
+
 				<h:commandButton style="margin-left:1cm;" value="Salvar"
 					action="#{pessoaBean.salvar}" image="/resources/img/save.png"
 					title="Salvar" />
+
 				<h:commandButton style="margin-left:1cm;" value="Delete"
 					action="#{pessoaBean.remove}" image="/resources/img/delete.png"
 					title="Delete"
 					rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}" />
-				<h:commandButton style="margin-left:1cm;" value="Limpar"
-					type="reset" image="/resources/img/clear.png" title="Limpar" />
+
+				<h:commandButton style="margin-left:1cm;" id="botaoEditar" value="Limpar"
+					action="#{pessoaBean.limpar}" image="/resources/img/clear.png"
+					title="Limpar" >
+					<f:ajax execute="botaoEditar" render="@form"/>
+					</h:commandButton>
 
 			</h:panelGroup>
 
-
 		</h:panelGrid>
+	</h:form>
 
 
 
+	<h:form id="formTable" style="margin-top:3%; 
+	margin-left:33%">
 		<h:dataTable value="#{pessoaBean.pessoas}" var="p" border="1">
 
 			<f:facet name="header">
