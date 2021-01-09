@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 
 <h:head>
@@ -11,15 +12,7 @@
 
 <h:body>
 
-	<h:form style="margin-top:3%; margin-left:28%">
-		<h:commandLink style="margin-left:1cm;" value="Administracação"
-			action="primeirapagina" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"/>
-		<h:commandLink style="margin-left:1cm;" value="Lancamento"
-			action="lancamento" />
-		<h:commandLink style="margin-left:1cm;" value="Trocar Usuário"
-			action="index" />
-
-	</h:form>
+	<ui:include src="/menu.xhtml" />
 
 	<h:form id="formPessoa" style="margin-top:3%; 
 	margin-left:33%"
@@ -28,6 +21,8 @@
 		<h:graphicImage height="100" width="200" library="img" name="jsf.png"
 			title="Cadastro em JSF" />
 
+
+		<h:messages infoStyle="color:green" />
 
 		<h:panelGrid columns="2" rendered="true">
 
@@ -70,15 +65,13 @@
 
 			<h:outputLabel value="Ativo" />
 			<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
-
-
 			<h:outputLabel value="login: " />
 			<h:inputText value="#{pessoaBean.pessoa.login}" />
-
 			<h:outputLabel value="Senha: " />
 			<h:inputSecret value="#{pessoaBean.pessoa.senha}" />
 
 			<h:outputLabel value="Perfil " />
+
 			<h:selectOneMenu id="PerfilUser"
 				value="#{pessoaBean.pessoa.perfilUser}">
 				<f:selectItem itemValue="NÃO INFORMADO" itemLabel="[-Selecionar]"
@@ -87,6 +80,25 @@
 				<f:selectItem itemValue="SECRETÁRIO" itemLabel="Secretário" />
 				<f:selectItem itemValue="RECEPCIONISTA" itemLabel="Recepcionista" />
 			</h:selectOneMenu>
+
+			<h:outputLabel value="Programador: " />
+
+			<h:selectOneRadio value="#{pessoaBean.pessoa.cargo}"
+				layout="pageDirection">
+				<f:selectItem itemValue="E" itemLabel="Especialista" />
+				<f:selectItem itemValue="S" itemLabel="Senior" />
+				<f:selectItem itemValue="P" itemLabel="Pleno" />
+				<f:selectItem itemValue="J" itemLabel="Junior" />
+			</h:selectOneRadio>
+
+			<h:outputLabel value="Linguagens: " />
+			<h:selectManyCheckbox value="#{pessoaBean.pessoa.linguagens}">
+				<f:selectItem itemValue="1" itemLabel="Java" />
+				<f:selectItem itemValue="2" itemLabel="PHP" />
+				<f:selectItem itemValue="3" itemLabel="Python" />
+				<f:selectItem itemValue="4" itemLabel="C#" />
+				<f:selectItem itemValue="5" itemLabel="Cobol" />
+			</h:selectManyCheckbox>
 
 
 			<h:outputLabel />

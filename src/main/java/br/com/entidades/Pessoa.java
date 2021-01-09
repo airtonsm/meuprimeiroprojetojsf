@@ -34,9 +34,29 @@ public class Pessoa implements Serializable {
 
 	private String login;
 	private String senha; 
+
 	
 	private String perfilUser;	
 	
+	private String cargo;
+	
+	private Integer[] linguagens;
+	
+	public void setLinguagens(Integer[] linguagens) {
+		this.linguagens = linguagens;
+	}
+	
+	public Integer[] getLinguagens() {
+		return linguagens;
+	}
+	
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+	
+	public String getCargo() {
+		return cargo;
+	}	
 
 	public String getPerfilUser() {
 		return perfilUser;
