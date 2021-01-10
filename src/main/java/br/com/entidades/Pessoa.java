@@ -49,7 +49,7 @@ public class Pessoa implements Serializable {
 
 	private String bairro;
 
-	private String Localidade;
+	private String localidade;
 
 	private String uf;
 
@@ -86,11 +86,11 @@ public class Pessoa implements Serializable {
 	}
 
 	public String getLocalidade() {
-		return Localidade;
+		return localidade;
 	}
 
 	public void setLocalidade(String localidade) {
-		Localidade = localidade;
+		this.localidade = localidade;
 	}
 
 	public String getUf() {

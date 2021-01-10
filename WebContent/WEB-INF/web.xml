@@ -26,4 +26,9 @@
 		<extension>jsp</extension>
 		<mime-type>application/jsp</mime-type>
 	</mime-mapping>
+	
+	<context-param>
+    <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+    <param-value>/WEB-INF/passthrough.taglib.xml;/WEB-INF/friendly_markup.taglib.xml</param-value>
+</context-param>
 </web-app>
