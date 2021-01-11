@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Estados implements Serializable {
@@ -43,6 +42,12 @@ public class Estados implements Serializable {
 
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
+	}
+	
+	@Override
+	public String toString() {
+	
+		return getId().toString();
 	}
 
 }

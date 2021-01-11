@@ -75,7 +75,10 @@ public class Cidades implements Serializable{
 	}
 	
 	
-	
+	@Override
+	public String toString() {
+		return getId().toString();
+	}
 	
 	
 	

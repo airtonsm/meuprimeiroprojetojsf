@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -60,6 +62,28 @@ public class Pessoa implements Serializable {
 	private String ddd;
 
 	private String siafi;
+	
+	@Transient  /*Não fica persistente, ou seja, não cria coluna na tabela pessoa*/
+	private Estados estados;
+	
+	@ManyToOne
+	private Cidades cidades;
+	
+	public Cidades getCidades() {
+		return cidades;
+	}
+	
+	public void setCidades(Cidades cidades) {
+		this.cidades = cidades;
+	}
+	
+	public void setEstados(Estados estados) {
+		this.estados = estados;
+	}
+	
+	public Estados getEstados() {
+		return estados;
+	}
 
 	public String getLogradouro() {
 		return logradouro;

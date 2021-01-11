@@ -15,12 +15,16 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 
 import com.google.gson.Gson;
 
 import br.bom.dao.DaoGeneric;
+import br.com.entidades.Cidades;
+import br.com.entidades.Estados;
 import br.com.entidades.Pessoa;
+import br.com.jpautil.JPAUtil;
 import br.com.repository.IDaoPessoa;
 import br.com.repository.IDaoPessoaImpl;
 
@@ -33,6 +37,10 @@ public class PessoaBean {
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 
 	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl();
+
+	private List<SelectItem> estados;
+
+	private List<SelectItem> cidades;
 
 	public String salvar() {
 		pessoa = daoGeneric.merge(pessoa);
@@ -82,18 +90,18 @@ public class PessoaBean {
 	public List<Pessoa> getPessoas() {
 		return pessoas;
 	}
-	
+
 	public String deslogar() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
 		externalContext.getSessionMap().remove("usuarioLogado");
-		
-		HttpServletRequest httpServletRequest =  (HttpServletRequest) context.getCurrentInstance().
-				getExternalContext().getRequest();
-		
+
+		HttpServletRequest httpServletRequest = (HttpServletRequest) context.getCurrentInstance().getExternalContext()
+				.getRequest();
+
 		httpServletRequest.getSession().invalidate();
-		
-		return"/index.jsf";
+
+		return "/index.jsf";
 	}
 
 	public String logar() {
@@ -139,8 +147,7 @@ public class PessoaBean {
 
 			Pessoa gsonAux = new Gson().fromJson(jsonCep.toString(), Pessoa.class);
 
-			
-			pessoa.setCep(gsonAux.getCep()); 
+			pessoa.setCep(gsonAux.getCep());
 			pessoa.setLogradouro(gsonAux.getLogradouro());
 			pessoa.setComplemento(gsonAux.getComplemento());
 			pessoa.setBairro(gsonAux.getBairro());
@@ -150,7 +157,7 @@ public class PessoaBean {
 			pessoa.setGia(gsonAux.getGia());
 			pessoa.setDdd(gsonAux.getDdd());
 			pessoa.setSiafi(gsonAux.getSiafi());
-			
+
 			System.err.println(gsonAux);
 
 		} catch (Exception e) {
@@ -158,6 +165,45 @@ public class PessoaBean {
 			mostrarMsg("Erro ao consultar o cep");
 		}
 
+	}
+
+	public List<SelectItem> getEstados() {
+		estados = iDaoPessoa.listaEstados();
+		return estados;
+	}
+
+	public void carregaCidades(AjaxBehaviorEvent event) {
+
+		String codigoEstado = (String) event.getComponent().getAttributes().get("submittedValue");
+
+		if (codigoEstado != null) {
+
+			Estados estado = JPAUtil.getEntityManager().find(Estados.class, Long.parseLong(codigoEstado));
+			if (estado != null) {
+				pessoa.setEstados(estado);
+
+				List<Cidades> cidades = JPAUtil.getEntityManager()
+										.createQuery("from Cidades where estados.id = "
+										+ codigoEstado).getResultList();
+				
+				List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
+				
+				for (Cidades cidade : cidades) {
+					selectItemsCidade.add(new SelectItem(cidade.getId(), cidade.getNome()));
+				}
+				
+				setCidades(selectItemsCidade);
+
+			}
+		}
+	}
+
+	public List<SelectItem> getCidades() {
+		return cidades;
+	}
+
+	public void setCidades(List<SelectItem> cidades) {
+		this.cidades = cidades;
 	}
 
 }

@@ -44,12 +44,12 @@
 
 			<h:outputLabel value="Sobrenome: " />
 			<h:inputText value="#{pessoaBean.pessoa.sobrenome}" required="true"
-			pt:placeholder="Inserir sobrenome"
+				pt:placeholder="Inserir sobrenome"
 				requiredMessage="Insera Sobrenome" />
 
 			<h:outputLabel value="Idade: " />
-			<h:inputText value="#{pessoaBean.pessoa.idade}" 
-			pt:placeholder="Inserir idade"/>
+			<h:inputText value="#{pessoaBean.pessoa.idade}"
+				pt:placeholder="Inserir idade" />
 
 			<h:outputLabel value="Sexo " />
 			<h:selectOneMenu id="Camposexo" value="#{pessoaBean.pessoa.sexo}">
@@ -66,7 +66,6 @@
 					timeZone="GMT-03:00" />
 			</h:inputText>
 
-
 			<h:outputLabel value="frameworks: " />
 			<h:selectManyMenu id="campoframeworks" style="height:150px"
 				value="#{pessoaBean.pessoa.frameworks}">
@@ -78,7 +77,8 @@
 			</h:selectManyMenu>
 
 			<h:outputLabel value="CEP" />
-			<h:inputText value="#{pessoaBean.pessoa.cep}" pt:placeholder="Inserir CEP"	>
+			<h:inputText value="#{pessoaBean.pessoa.cep}"
+				pt:placeholder="Inserir CEP">
 				<f:ajax event="blur" execute="@this"
 					listener="#{pessoaBean.pesquisaCep}"
 					render="logradouro complemento bairro localidade uf ibge gia ddd siafi" />
@@ -89,7 +89,7 @@
 
 			<h:outputLabel value="Complemento: " />
 			<h:inputText value="#{pessoaBean.pessoa.complemento}"
-				id="complemento" pt:placeholder="Inserir complemento"/>
+				id="complemento" pt:placeholder="Inserir complemento" />
 
 			<h:outputLabel value="Bairro: " />
 			<h:inputText value="#{pessoaBean.pessoa.bairro}" id="bairro" />
@@ -115,9 +115,11 @@
 			<h:outputLabel value="Ativo" />
 			<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
 			<h:outputLabel value="login: " />
-			<h:inputText value="#{pessoaBean.pessoa.login}" pt:placeholder="Inserir Login"/>
+			<h:inputText value="#{pessoaBean.pessoa.login}"
+				pt:placeholder="Inserir Login" />
 			<h:outputLabel value="Senha: " />
-			<h:inputSecret value="#{pessoaBean.pessoa.senha}" pt:placeholder="Inserir Senha"/>
+			<h:inputSecret value="#{pessoaBean.pessoa.senha}"
+				pt:placeholder="Inserir Senha" />
 
 			<h:outputLabel value="Perfil " />
 
@@ -139,6 +141,23 @@
 				<f:selectItem itemValue="P" itemLabel="Pleno" />
 				<f:selectItem itemValue="J" itemLabel="Junior" />
 			</h:selectOneRadio>
+
+			<h:outputLabel value="Estados: " />
+			<h:selectOneMenu value="#{pessoaBean.pessoa.estados}"
+				immediate="true">
+				<f:selectItem itemLabel="--[Selecione]--" noSelectionOption="true" />
+				<f:selectItems value="#{pessoaBean.estados}" />
+				<f:ajax event="change" execute="@this"
+					listener="#{pessoaBean.carregaCidades}" render="comboCidades"/>
+			</h:selectOneMenu>
+
+			<h:outputLabel value="Cidades: " />
+			
+			<h:selectOneMenu value="#{pessoaBean.pessoa.cidades}"
+				id="comboCidades">
+				<f:selectItem itemLabel="--[Selecione]--" noSelectionOption="true"/>
+				<f:selectItems value="#{pessoaBean.cidades}" />
+			</h:selectOneMenu>
 
 			<h:outputLabel value="Linguagens: " />
 			<h:selectManyCheckbox value="#{pessoaBean.pessoa.linguagens}">
