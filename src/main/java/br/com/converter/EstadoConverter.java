@@ -12,29 +12,35 @@ import javax.persistence.EntityTransaction;
 import br.com.entidades.Estados;
 import br.com.jpautil.JPAUtil;
 
-@FacesConverter(forClass = Estados.class)
+@FacesConverter(forClass = Estados.class, value = "estadoConverter")
 public class EstadoConverter implements Converter, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Override/*Retorna objeto inteiro*/
+	@Override /* Retorna objeto inteiro */
 	public Object getAsObject(FacesContext context, UIComponent component, String codigoEstado) {
-			
-		
+
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
-		
-		Estados estados = (Estados) entityManager.
-				find(Estados.class, Long.parseLong(codigoEstado));
-		
+
+		Estados estados = (Estados) entityManager.find(Estados.class, Long.parseLong(codigoEstado));
+
 		return estados;
 	}
 
-	@Override/*Retorna apenas o codigo em String*/
+	@Override /* Retorna apenas o codigo em String */
 	public String getAsString(FacesContext context, UIComponent component, Object estado) {
+
+		if (estado == null) {
+			return null;
+		}
+		if (estado instanceof Estados) {
+			return ((Estados) estado).getId().toString();
 		
-		return ((Estados) estado).getId().toString();
+		}else {
+			return estado.toString();
+		}
 	}
 
 }

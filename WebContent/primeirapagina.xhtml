@@ -144,18 +144,18 @@
 
 			<h:outputLabel value="Estados: " />
 			<h:selectOneMenu value="#{pessoaBean.pessoa.estados}"
-				immediate="true">
+				immediate="true" id="camboEstados" converter="estadoConverter">
 				<f:selectItem itemLabel="--[Selecione]--" noSelectionOption="true" />
 				<f:selectItems value="#{pessoaBean.estados}" />
 				<f:ajax event="change" execute="@this"
-					listener="#{pessoaBean.carregaCidades}" render="comboCidades"/>
+					listener="#{pessoaBean.carregaCidades}" render="comboCidades" />
 			</h:selectOneMenu>
 
 			<h:outputLabel value="Cidades: " />
-			
+
 			<h:selectOneMenu value="#{pessoaBean.pessoa.cidades}"
-				id="comboCidades">
-				<f:selectItem itemLabel="--[Selecione]--" noSelectionOption="true"/>
+				id="comboCidades" converter="cidadesConverter">
+				<f:selectItem itemLabel="--[Selecione]--" noSelectionOption="true" />
 				<f:selectItems value="#{pessoaBean.cidades}" />
 			</h:selectOneMenu>
 
@@ -227,7 +227,7 @@
 
 			<h:column>
 				<f:facet name="header">editar</f:facet>
-				<h:commandLink>
+				<h:commandLink title="Editar" action="#{pessoaBean.editar}">
 					<f:setPropertyActionListener value="#{p}"
 						target="#{pessoaBean.pessoa}" />
 					<h:graphicImage value="/resources/img/edit.png" title="Editar" />

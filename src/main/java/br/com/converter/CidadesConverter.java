@@ -13,7 +13,7 @@ import br.com.entidades.Cidades;
 import br.com.entidades.Estados;
 import br.com.jpautil.JPAUtil;
 
-@FacesConverter(forClass = Cidades.class)
+@FacesConverter(forClass = Cidades.class, value = "cidadesConverter")
 public class CidadesConverter implements Converter, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -35,7 +35,17 @@ public class CidadesConverter implements Converter, Serializable {
 	@Override/*Retorna apenas o codigo em String*/
 	public String getAsString(FacesContext context, UIComponent component, Object cidade) {
 		
-		return ((Cidades) cidade).getId().toString();
+		
+		if (cidade == null) {
+			return null;
+		}
+		if (cidade instanceof Cidades) {
+			return ((Cidades) cidade).getId().toString();
+		
+		}else {
+			return cidade.toString();
+		}
+		
 	}
 
 }
