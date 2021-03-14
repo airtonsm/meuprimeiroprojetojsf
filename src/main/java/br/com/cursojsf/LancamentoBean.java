@@ -9,7 +9,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import br.bom.dao.DaoGeneric;
+import br.com.dao.DaoGeneric;
 import br.com.entidades.Lancamento;
 import br.com.entidades.Pessoa;
 import br.com.repository.IDaoLancamento;
