@@ -1,4 +1,4 @@
-package br.bom.dao;
+package br.com.dao;
 
 import java.util.List;
 
@@ -50,39 +50,36 @@ public class DaoGeneric<E> {
 		entityTransaction.begin();
 
 		Object id = JPAUtil.getPrimaryKey(entidade);
-		entityManager.createQuery("delete from " + entidade.getClass().getCanonicalName() + 
-				" where id = " + id)
+		entityManager.createQuery("delete from " + entidade.getClass().getCanonicalName() + " where id = " + id)
 				.executeUpdate();
 
 		entityTransaction.commit();
 		entityManager.close();
 	}
-	
-	public List<E> getListEntity(Class<E> entidade){
+
+	public List<E> getListEntity(Class<E> entidade) {
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
-		
-		List<E> retorno = entityManager.createQuery("from " + 
-		entidade.getName()).getResultList();
-		
-		
+
+		List<E> retorno = entityManager.createQuery("from " + entidade.getName()).getResultList();
+
 		entityTransaction.commit();
 		entityManager.close();
-		
-		return retorno;		
+
+		return retorno;
 	}
-	
+
 	public E consultar(Class<E> entidade, String codigo) {
-		
+
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
-		
+
 		E objeto = (E) entityManager.find(entidade, Long.parseLong(codigo));
 		entityTransaction.commit();
 		return objeto;
-		
+
 	}
 
 }
